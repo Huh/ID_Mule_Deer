@@ -5,9 +5,6 @@
 		#  The primary purpose is to move jags model objects to a common 
 		#  directory to make their use easier and more programmatic
 #################################################################################
-		#  Load required packages
-		require(dplyr)
-#################################################################################
 		#  Get model names from model_out folder, this assumes that old model
 		#  names are the same as the new model names and old versions or new are
 		#  in the MarkSurv/model_out folder
