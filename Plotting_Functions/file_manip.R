@@ -7,9 +7,6 @@
 #################################################################################
 		#  Load required packages
 		require(dplyr)
-#################################################################################		
-		#  Set working directory, works on windows for sure, other OS?
-
 #################################################################################
 		#  Get model names from model_out folder, this assumes that old model
 		#  names are the same as the new model names and old versions or new are
@@ -29,18 +26,18 @@
 			#  Load workspace
 			load(file.path(wd, "model_out", x))
 			#  All model objects are called the same thing, extract it
-			save(surv.res, file = file.path(wd, "plot_in", x))
+			save(surv.res, file = file.path(wd, "model_out", x))
 			rm(list = ls())[ls() != "mn"]
 			gc()		
 		})
 		
-		#  Copy km estimates to plot_in
+		#  Copy km estimates to data
 		km <- read.table(file.path(wd, "kmsurvival.txt"), 
 							sep = "\t",
 							na.strings = c(" ", ""), 
 							header = T, 
 							as.is = T)
-		save(km, file = file.path(wd, "plot_in", "km.RData"))
+		save(km, file = file.path(wd, "data", "km.RData"))
 #################################################################################
 		#  End
 		
