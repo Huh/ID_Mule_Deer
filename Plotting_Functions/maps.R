@@ -100,7 +100,7 @@
 								alpha = 0.7) +
 				geom_polygon(data = pmu_fort,
 								aes(x = long, y = lat, group = group),
-								fill = NA, colour = pmu_border, size = pmu_size)+
+								fill = NA, colour = pmu_border, size = pmu_line)+
 				geom_text(data = pmu_labs, aes(x=x, y=y, label = PMU, 
 							hjust = 0.5, vjust = 0.5, fontface = "bold"), 
 							size = pmu_size,	colour = pmu_txt) +
