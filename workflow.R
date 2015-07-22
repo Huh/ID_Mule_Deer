@@ -17,10 +17,15 @@
 		require(downloader)
 #################################################################################
 		#  Source plotting functions
+		std_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R",
+							cmd = F)
 		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R", 
-			sha="d378c042329beb8bbd4542238f8f68f41919e335")
+					sha = std_key)
+		maps_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/maps.R",
+						cmd = F)
 		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/maps.R", 
-			sha="5c5e9bb1f312725fae1ac54c9384838c3b529079")
+					sha = maps_key)
+		rm(list = c("maps_key", "std_key"))
 #################################################################################
 		#  Establish working directory..user may have to set it manually, R will
 		#  tell you what to do.  This is the top directory containing the gmu
@@ -54,30 +59,40 @@
 #################################################################################
 		#  Create plots...
 		#  Study area map with default colors broken out so user can see them
-		study_area(gmu_border = "gray25", 
-					gmu_txt = "gray25",
-					pmu_border = "gray90", 
-					pmu_txt = "white",
-					pmu_fill = c("green3", "darkgreen", "navajowhite4"),
-					bground = "terrain-background")
+		sa <- study_area(gmu_border = "gray25",
+							gmu_line = 1.1,
+							gmu_txt = "gray25",
+							gmu_size = 2.5,
+							pmu_border = "gray90",
+							pmu_line = 1.7,
+							pmu_size = 3.4,
+							pmu_txt = "white",
+							eco_fill = c("green3", "darkgreen", 
+											"navajowhite4"),
+							bground = "terrain-background")
 		#  Plot of pmu specific intercept estimates
-		rand_map(model_nm = "fullwinterrandnomass_712",
-					lower = "red",
-					upper = "green",
-					pmu_alpha = 0.7,
-					pmu_line = "gray",
-					phi_txt = "black",
-					phi_size = 3,
-					intercept = T)
+		ri <- rand_map(model_nm = "fullwinterrandnomass_712",
+						lower = "red",
+						upper = "green",
+						pmu_alpha = 0.7,
+						pmu_line = "gray",
+						phi_txt = "black",
+						phi_size = 3,
+						intercept = T)
 		#  Plot of pmu specific winter slope estimates
-		rand_map(model_nm = "fullwinterrandnomass_712",
-					lower = "red",
-					upper = "green",
-					pmu_alpha = 0.7,
-					pmu_line = "gray",
-					phi_txt = "black",
-					phi_size = 3,
-					intercept = F)
+		rs <- rand_map(model_nm = "fullwinterrandnomass_712",
+						lower = "red",
+						upper = "green",
+						pmu_alpha = 0.7,
+						pmu_line = "gray",
+						phi_txt = "black",
+						phi_size = 3,
+						intercept = F)
+		#  All of the maps at once, visually the grid on which you plot is...
+		#	1	2
+		#	1	3
+		lay <- matrix(c(1, 2, 1, 3), ncol = 2, byrow = T)
+		multiplot(sa, ri, rs, layout = lay)
 		
 					
 		

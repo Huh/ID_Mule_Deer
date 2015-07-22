@@ -55,8 +55,14 @@
 
 
 #################################################################################
-		study_area <- function(gmu_border = "gray25", gmu_txt = "gray25",
-								pmu_border = "gray90", pmu_txt = "white",
+		study_area <- function(gmu_border = "gray25",
+								gmu_line = 1.1,
+								gmu_txt = "gray25",
+								gmu_size = 2.5,
+								pmu_border = "gray90",
+								pmu_line = 1.7,
+								pmu_size = 3.4,
+								pmu_txt = "white",
 								eco_fill = c("green3", "darkgreen", 
 												"navajowhite4"),
 								bground = "terrain-background"){
@@ -84,9 +90,9 @@
 			ggmap(bckgrd) +
 				geom_polygon(data = id_fort, 
 								aes(x = long, y = lat, group = group),
-								fill = NA, colour = gmu_border, size = 1.1) +
+								fill = NA, colour = gmu_border, size = gmu_line)+
 				geom_text(data = gmu_labs, aes(x=x, y=y, label = GMU, 
-							hjust = 0.5, vjust = 0.5), size = 2.5, 
+							hjust = 0.5, vjust = 0.5), size = gmu_size, 
 							colour = gmu_txt) +
 				geom_polygon(data = id_fort[!is.na(id_fort$PMU),], 
 								aes(x = long, y = lat, group = group, 
@@ -94,10 +100,10 @@
 								alpha = 0.7) +
 				geom_polygon(data = pmu_fort,
 								aes(x = long, y = lat, group = group),
-								fill = NA, colour = pmu_border, size = 1.7) +
+								fill = NA, colour = pmu_border, size = pmu_size)+
 				geom_text(data = pmu_labs, aes(x=x, y=y, label = PMU, 
 							hjust = 0.5, vjust = 0.5, fontface = "bold"), 
-							size = 3.4,	colour = pmu_txt) +
+							size = pmu_size,	colour = pmu_txt) +
 				xlab("Latitude") +
 				ylab("Longitude") +
 				scale_fill_manual(values = eco_fill)		
