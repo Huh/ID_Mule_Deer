@@ -68,15 +68,12 @@
 		pmu_labs$y[8] <- 43.73
 
 		#  Save output
-		save(id_fort, file = "C:/Users/josh.nowak/Documents/GitHub/ID_Mule_Deer/id_fort.RData")
-		save(gmu_labs, file = "C:/Users/josh.nowak/Documents/GitHub/ID_Mule_Deer/gmu_labs.RData")
-		save(pmu_fort, file = "C:/Users/josh.nowak/Documents/GitHub/ID_Mule_Deer/pmu_fort.RData")
-		save(pmu_labs, file = "C:/Users/josh.nowak/Documents/GitHub/ID_Mule_Deer/pmu_labs.RData")
+		save(map_zoom, file = "C:/Users/josh.nowak/Dropbox/MarkSurv/data/map_zoom.RData")
+		save(id_fort, file = "C:/Users/josh.nowak/Dropbox/MarkSurv/data/id_fort.RData")
+		save(gmu_labs, file = "C:/Users/josh.nowak/Dropbox/MarkSurv/data/gmu_labs.RData")
+		save(pmu_fort, file = "C:/Users/josh.nowak/Dropbox/MarkSurv/data/pmu_fort.RData")
+		save(pmu_labs, file = "C:/Users/josh.nowak/Dropbox/MarkSurv/data/pmu_labs.RData")
 #################################################################################
 		#  End
-		
-		
-		
-		
 				
 		
