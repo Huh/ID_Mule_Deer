@@ -16,15 +16,11 @@
 		require(R2jags)
 		require(downloader)
 #################################################################################
-		#  Load common data
-		shape <- readOGR()
-		cross_ref <- gmuDau
-#################################################################################
 		#  Source plotting functions
-		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R",
-					prompt = F)
-		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/maps.R",
-					prompt = F)
+		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R", 
+			sha="d378c042329beb8bbd4542238f8f68f41919e335")
+		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/maps.R", 
+			sha="5c5e9bb1f312725fae1ac54c9384838c3b529079")
 #################################################################################
 		#  Establish working directory..user may have to set it manually, R will
 		#  tell you what to do.  This is the top directory containing the gmu

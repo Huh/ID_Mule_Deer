@@ -163,7 +163,7 @@
 							hjust = 0.5, vjust = -1), size = phi_size, 
 							colour = phi_txt, fontface = "bold") +
 				geom_text(data = pmu_labs, aes(x=x, y=y, 
-							label = paste("(SD = ", pmu_labs$SD, ")", sep = ""), 
+							label = paste("(SD = ", SD, ")", sep = ""), 
 							hjust = 0.5, vjust = 1), size = phi_size, 
 							colour = phi_txt) +
 				xlab("Longitude") +
