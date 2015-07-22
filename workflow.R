@@ -7,10 +7,20 @@
 		#  Load packages
 		require(dplyr)
 		require(sp)
-		require()
+		require(mcmcplots)
 		require(ggplot)
 #################################################################################
-		#  Establish working directory..user should not have to do anything on 
+		#  Load common data
+		shape <- readOGR()
+		cross_ref <- gmuDau
+#################################################################################
+		#  Source plotting functions
+		source("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R")
+		source("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/maps.R")
+#################################################################################
+		#  Establish working directory..user may have to set it manually, R will
+		#  tell you what to do.  This is the top directory containing the gmu
+		#  and plot_in folders
 		#  Windows
 		if(Sys.info()["sysname"] == "Windows"){
 			wd <- file.path("C:/Users/", Sys.info()["login"], "/Dropbox/MarkSurv")
@@ -35,4 +45,6 @@
 		#  Manipulate files if needed
 		#  Run this line if:
 		#  New files have been added to MarkSurv
-		source("")
+		source("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/workflow.R")
+#################################################################################
+		#  Create plots...
