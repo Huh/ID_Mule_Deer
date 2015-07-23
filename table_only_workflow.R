@@ -22,6 +22,30 @@
 		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Table_Functions/dic_table_funs.R", 
 					sha = tbl_key)
 #################################################################################
+		#  Establish working directory..user may have to set it manually, R will
+		#  tell you what to do.  This is the top directory containing the gmu
+		#  and plot_in folders
+		#  Windows
+		if(Sys.info()["sysname"] == "Windows"){
+			wd <- file.path("C:/Users/", Sys.info()["login"], "/Dropbox/MarkSurv")
+			setwd(wd)
+			if(!grepl("MarkSurv", getwd())){ 
+				cat("\n\n", "Failed to set working directory!", 
+					"\n",
+					"Please working directory to '.../Dropbox/MarkSurv' before proceeding", 
+					"\n\n")
+			}			
+		}else{
+			wd <- "~/Dropbox/MarkSurv"
+			try(setwd(wd), silent = T)
+			if(!grepl("MarkSurv", getwd())){ 
+				cat("\n\n", "Failed to set working directory!", 
+					"\n",
+					"Please working directory to '.../Dropbox/MarkSurv' before proceeding", 
+					"\n\n")
+			}
+		}
+#################################################################################
 		#  Create DIC table
 		#  Get model names - repeated in case you jump around in the script
 		mns <- list.files(file.path(getwd(), "plot_in"))
