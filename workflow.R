@@ -15,6 +15,7 @@
 		require(ggthemes)
 		require(R2jags)
 		require(downloader)
+		require(knitr)
 #################################################################################
 		#  Source plotting functions
 		std_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R",
@@ -119,6 +120,34 @@
 
 		list(ri, rs)	
 		})
+#################################################################################
+		#  Create DIC table
+		#  Get model names - repeated in case you jump around in the script
+		mns <- list.files(file.path(getwd(), "plot_in"))
+		#  Eliminate ecotype models, prediction models and km
+		mns <- mns[!grepl("shrub|aspen|con|predi|km", mns, ignore.case = T)]
+		cat("\n\n", "The models to be included in table:\n", 
+			paste(mns, collapse = "\n "), "\n\n")
+			
+		#  DIC table in R, all models
+		dic_wrapper(mns)
+		
+		#  DIC for one model
+		dic_wrapper("3cov57.RData")
+		#  OR
+		extract_dic("3cov_713.RData")
+		
+		#  Create word table - no file extension on doc_name
+		dic_wrapper(mns, word = T, doc_name = "sweet_table")
+#################################################################################
+		#  Create parameter table
+		
+		
+		
+		
+		
+		
+		
 		
 		
 					
