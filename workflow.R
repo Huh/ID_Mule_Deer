@@ -57,14 +57,14 @@
 		# source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Data_Creation/file_manip.R",
 					# prompt = F)
 #################################################################################
-		#  Create plots...
-		#  Study area map with default colors broken out so user can see them
+		#  Create plots...for one model
+		#  Study area map with defaults broken out so user can see them
 		sa <- study_area(gmu_border = "gray25",
 							gmu_line = 1.1,
 							gmu_txt = "gray25",
 							gmu_size = 2.5,
 							pmu_border = "gray90",
-							pmu_line = 1.7,
+							pmu_line = 1.1,
 							pmu_size = 3.4,
 							pmu_txt = "white",
 							eco_fill = c("green3", "darkgreen", 
@@ -93,6 +93,33 @@
 		#	1	3
 		lay <- matrix(c(1, 2, 1, 3), ncol = 2, byrow = T)
 		multiplot(sa, ri, rs, layout = lay)
+#################################################################################
+		#  Create plots...all models at "once"
+		#  Get model names
+		mns <- list.files(file.path(getwd(), "plot_in"))
+		#  Eliminate ecotype models, prediction models and km
+		mns <- mns[!grepl("shrub|aspen|con|predi|km", mns, ignore.case = T)]
+		cat("\n\n", "The models to be plotted include:\n", 
+			paste(mns, collapse = "\n "), "\n\n")
+		
+		#  Click on History->Recording in plot window before proceeding to make 
+		#   plots scorllable 
+		plot_list <- lapply(mns, function(x){
+			print(x)
+			#  Uncomment if you want study area too, then change layout matrix
+			#sa <- study_area()
+			ri <- rand_map(x, intercept = T)
+			if(grepl("rand", x)){
+				rs <- rand_map(x, intercept = F)
+				lay <- matrix(c(1, 2, 1, 2), ncol = 2, byrow = T)
+				multiplot(ri, rs, layout = lay)			
+			}else{
+				print(ri)
+			}
+
+		list(ri, rs)	
+		})
+		
 		
 					
 		

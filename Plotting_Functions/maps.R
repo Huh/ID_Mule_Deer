@@ -103,7 +103,7 @@
 								fill = NA, colour = pmu_border, size = pmu_line)+
 				geom_text(data = pmu_labs, aes(x=x, y=y, label = PMU, 
 							hjust = 0.5, vjust = 0.5, fontface = "bold"), 
-							size = pmu_size,	colour = pmu_txt) +
+							size = pmu_size, colour = pmu_txt) +
 				xlab("Latitude") +
 				ylab("Longitude") +
 				scale_fill_manual(values = eco_fill)		
