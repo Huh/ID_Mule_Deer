@@ -4,6 +4,8 @@
 		#  Only work with this script directly
 #################################################################################
 		#  Load packages
+		require(proto)
+		require(plyr)
 		require(dplyr)
 		require(sp)
 		require(rgdal)
@@ -15,36 +17,26 @@
 		require(R2jags)
 		require(downloader)
 		require(knitr)
+		require(rmarkdown)
 #################################################################################
 		#  Source functions
+		std_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R",
+							cmd = F)
+		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R", 
+					sha = std_key)
 		tbl_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Table_Functions/dic_table_funs.R",
 							cmd = F)
 		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Table_Functions/dic_table_funs.R", 
 					sha = tbl_key)
+		rm(list = c("std_key", "tbl_key"))
 #################################################################################
-		#  Establish working directory..user may have to set it manually, R will
-		#  tell you what to do.  This is the top directory containing the gmu
-		#  and plot_in folders
-		#  Windows
-		if(Sys.info()["sysname"] == "Windows"){
-			wd <- file.path("C:/Users/", Sys.info()["login"], "/Dropbox/MarkSurv")
-			setwd(wd)
-			if(!grepl("MarkSurv", getwd())){ 
-				cat("\n\n", "Failed to set working directory!", 
-					"\n",
-					"Please working directory to '.../Dropbox/MarkSurv' before proceeding", 
-					"\n\n")
-			}			
-		}else{
-			wd <- "~/Dropbox/MarkSurv"
-			try(setwd(wd), silent = T)
-			if(!grepl("MarkSurv", getwd())){ 
-				cat("\n\n", "Failed to set working directory!", 
-					"\n",
-					"Please working directory to '.../Dropbox/MarkSurv' before proceeding", 
-					"\n\n")
-			}
-		}
+		#  Set Working Directory
+		
+		#  Different on your system!!!!
+		#  Set to MarkSurv folder or whatever folder contains data, plot_in and 
+		#  model_out folders
+		setwd("C:/Users/josh.nowak/Dropbox/MarkSurv")
+		
 #################################################################################
 		#  Create DIC table
 		#  Get model names - repeated in case you jump around in the script
@@ -64,3 +56,23 @@
 		
 		#  Create word table - no file extension on doc_name
 		dic_wrapper(mns, word = T, doc_name = "sweet_table")
+		
+#################################################################################
+		#  Create Coefficient Table
+		
+		#  Step 1, call get_fixedeff
+		fe <- get_fixedeff(model_nm = c("3cov_713", "3covshrubnomass5_7", "5cov_713"), 
+					model_labs = c("M1", "M2", "M3"), 
+					param_nm = paste("alpha", c(1, 3:7), sep = ""),
+					param_labs = paste("param", 1:6, sep = " "))
+					
+		#  Step 2, make table
+		coef_report(fe, "coef_table")
+#################################################################################
+		#  End
+		
+		
+		
+		
+		
+		

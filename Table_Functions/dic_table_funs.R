@@ -55,3 +55,30 @@
 			
 		return(out)
 		}
+		
+		coef_report <- function(fixed_ef, doc_name){
+			#  A function to create a word table from the output of get_fixedeff
+			#  Takes
+			#  fixed_ef which is the output of or a call to get_fixedeff
+			#  doc_name the name of the resulting document
+			fe <- data.frame(fixed_ef[,1:2], round(fixed_ef[,c(-1, -2)], 3))
+			doc_name <- paste(doc_name, ".Rmd", sep = "")
+			#  Define YAML header
+			cat("---", 
+				"\ntitle: 'Coefficient Table'", 
+				"\nauthor: 'Mark Hurley'",
+				paste("\ndate:", format(Sys.time(), "%b %d, %Y")), 
+				"\n---\n",
+				file = paste(doc_name, sep = ""))
+			#  Insert DIC table
+			cat("\n\n\n",
+				"```{r, echo = FALSE, results='asis'}\n\n",
+				"\nkable(fe, align = 'c')\n\n",
+				"```",
+				"\n\n-----\n\n",
+				append = T, file = doc_name)					
+			render(doc_name, "word_document")
+			cat("\n\n", "Word document", paste(doc_name, ".docx", sep = ""),
+				"saved in folder:", getwd(), 
+				"\n\n")
+		}
