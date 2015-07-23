@@ -5,6 +5,8 @@
 		#  perform data/file manipulation
 #################################################################################
 		#  Load packages
+		require(proto)
+		require(plyr)
 		require(dplyr)
 		require(sp)
 		require(rgdal)
@@ -16,6 +18,7 @@
 		require(R2jags)
 		require(downloader)
 		require(knitr)
+		require(rmarkdown)
 #################################################################################
 		#  Source plotting functions
 		std_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R",
@@ -36,32 +39,22 @@
 		#  tell you what to do.  This is the top directory containing the gmu
 		#  and plot_in folders
 		#  Windows
-		if(Sys.info()["sysname"] == "Windows"){
-			wd <- file.path("C:/Users/", Sys.info()["login"], "/Dropbox/MarkSurv")
-			setwd(wd)
-			if(!grepl("MarkSurv", getwd())){ 
-				cat("\n\n", "Failed to set working directory!", 
-					"\n",
-					"Please working directory to '.../Dropbox/MarkSurv' before proceeding", 
-					"\n\n")
-			}			
-		}else{
-			wd <- "~/Dropbox/MarkSurv"
-			try(setwd(wd), silent = T)
-			if(!grepl("MarkSurv", getwd())){ 
-				cat("\n\n", "Failed to set working directory!", 
-					"\n",
-					"Please working directory to '.../Dropbox/MarkSurv' before proceeding", 
-					"\n\n")
-			}
-		}
+		
+		#  Change to the location of MarkSurv on your computer!!!!!!!!!!!
+		setwd("C:/Users/josh.nowak/Dropbox/MarkSurv")
+		
 #################################################################################
 		#  Manipulate files if needed
 		#  Run this line if:
 		#  New files have been added to MarkSurv
-		# source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Data_Creation/file_manip.R",
-					# prompt = F)
+		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Data_Creation/file_manip.R",
+					prompt = F)
 #################################################################################
+#																				#	
+#										Maps									#
+#																				#	
+#################################################################################
+
 		#  Create plots...for one model
 		#  Study area map with defaults broken out so user can see them
 		sa <- study_area(gmu_border = "gray25",
@@ -98,8 +91,9 @@
 		#	1	3
 		lay <- matrix(c(1, 2, 1, 3), ncol = 2, byrow = T)
 		multiplot(sa, ri, rs, layout = lay)
+		
 #################################################################################
-		#  Create plots...all models at "once"
+		#  Create plots...maps of all models at "once"
 		#  Get model names
 		mns <- list.files(file.path(getwd(), "plot_in"))
 		#  Eliminate ecotype models, prediction models and km
@@ -124,6 +118,36 @@
 
 		list(ri, rs)	
 		})
+		
+#################################################################################
+#  																				#	
+#								Coefficient plots								#
+#																				#		
+#################################################################################
+		#  Create coefficient plots
+		#  One model
+		fe <- get_fixedeff(model_nm = "3cov_713", 
+							model_labs = "Model Name Here", 
+							param_nm = "alpha4", 
+							param_labs = "Parameter Name Here")
+		
+		#  Print table of values
+		print(fe)
+		
+		#  Plot it
+		plot_fixedeff(fe)
+		
+		#  Multiple model plot
+		fe <- get_fixedeff(model_nm = c("3cov_713", "3covshrubnomass5_7", "5cov_713"), 
+							model_labs = c("M1", "M2", "M3"), 
+							param_nm = paste("alpha", c(1, 3:7), sep = ""),
+							param_labs = paste("param", 1:6, sep = " "))		
+		plot_fixedeff(fe)
+
+#################################################################################
+#  																				#	
+#								DIC Tables										#
+#																				#		
 #################################################################################
 		#  Create DIC table
 		#  Get model names - repeated in case you jump around in the script
@@ -144,7 +168,21 @@
 		#  Create word table - no file extension on doc_name
 		dic_wrapper(mns, word = T, doc_name = "sweet_table")
 #################################################################################
-		#  Create parameter table
+#  																				#	
+#							Coefficient Tables									#
+#																				#		
+#################################################################################
+		#  Creat coefficient table
+		#  Step 1, call get_fixedeff
+		fe <- get_fixedeff(model_nm = c("3cov_713", "3covshrubnomass5_7", "5cov_713"), 
+					model_labs = c("M1", "M2", "M3"), 
+					param_nm = paste("alpha", c(1, 3:7), sep = ""),
+					param_labs = paste("param", 1:6, sep = " "))
+		#  Step 2, make table
+		coef_report(fe, "coef_table")
+
+#################################################################################
+	#  End
 		
 		
 		

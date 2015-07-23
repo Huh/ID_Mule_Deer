@@ -10,12 +10,6 @@
 		#  in the MarkSurv/model_out folder
 		mn <- list.files(file.path(getwd(), "model_out"))
 		
-		#  If required move new files from MarkSurv to MarkSurv/model_out
-		lapply(mn, function(x){
-			file.copy(file.path(wd, x), file.path(wd, "model_out", x), 
-						copy.date = T)
-		})
-		
 		#  With model names in hand load each workspace, extract model and save 
 		#  new copy in plot_in this step
 		#  is slow!!!
@@ -23,18 +17,19 @@
 			#  Load workspace
 			load(file.path(wd, "model_out", x))
 			#  All model objects are called the same thing, extract it
-			save(surv.res, file = file.path(wd, "model_out", x))
+			save(surv.res, file = file.path(wd, "plot_in", x))
 			rm(list = ls())[ls() != "mn"]
 			gc()		
 		})
 		
-		#  Copy km estimates to data
-		km <- read.table(file.path(wd, "kmsurvival.txt"), 
-							sep = "\t",
-							na.strings = c(" ", ""), 
-							header = T, 
-							as.is = T)
-		save(km, file = file.path(wd, "data", "km.RData"))
+		# Copy km estimates to data, this was a one time step and won't be 
+		#  performed again
+		# km <- read.table(file.path(wd, "kmsurvival.txt"), 
+							# sep = "\t",
+							# na.strings = c(" ", ""), 
+							# header = T, 
+							# as.is = T)
+		# save(km, file = file.path(wd, "data", "km.RData"))
 #################################################################################
 		#  End
 		
