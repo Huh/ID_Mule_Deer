@@ -26,7 +26,11 @@
 						cmd = F)
 		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/maps.R", 
 					sha = maps_key)
-		rm(list = c("maps_key", "std_key"))
+		tbl_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Table_Functions/dic_table_funs.R",
+							cmd = F)
+		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Table_Functions/dic_table_funs.R", 
+					sha = tbl_key)
+		rm(list = c("maps_key", "std_key", "tbl_key"))
 #################################################################################
 		#  Establish working directory..user may have to set it manually, R will
 		#  tell you what to do.  This is the top directory containing the gmu
