@@ -18,7 +18,7 @@
 						
 			#  Check model name
 			if(any(!grepl(".RData", model_nm))){
-				model_nm <- gsub(".RData", "", model_nm)
+				model_nm <- gsub(".RData", "", model_nm, ignore.case = T)
 				model_nm <- paste(model_nm, "RData", sep = ".")
 			}
 			

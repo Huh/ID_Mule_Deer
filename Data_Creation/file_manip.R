@@ -9,27 +9,29 @@
 		#  names are the same as the new model names and old versions or new are
 		#  in the MarkSurv/model_out folder
 		mn <- list.files(file.path(getwd(), "model_out"))
+		mn <- mn[!grepl("desktop", mn)]
 		
 		#  With model names in hand load each workspace, extract model and save 
 		#  new copy in plot_in this step
 		#  is slow!!!
 		lapply(mn, function(x){
+			print(x)
 			#  Load workspace
-			load(file.path(wd, "model_out", x))
+			load(file.path(getwd(), "model_out", x))
 			#  All model objects are called the same thing, extract it
-			save(surv.res, file = file.path(wd, "plot_in", x))
+			save(surv.res, file = file.path(getwd(), "plot_in", x))
 			rm(list = ls())[ls() != "mn"]
 			gc()		
 		})
 		
 		# Copy km estimates to data, this was a one time step and won't be 
 		#  performed again
-		# km <- read.table(file.path(wd, "kmsurvival.txt"), 
+		# km <- read.table(file.path(getwd(), "kmsurvival.txt"), 
 							# sep = "\t",
 							# na.strings = c(" ", ""), 
 							# header = T, 
 							# as.is = T)
-		# save(km, file = file.path(wd, "data", "km.RData"))
+		# save(km, file = file.path(getwd(), "data", "km.RData"))
 #################################################################################
 		#  End
 		
