@@ -45,11 +45,11 @@
 		#  Manipulate files if needed
 		#  Run this line if:
 		#  New files have been added to MarkSurv
-		file_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Data_Creation/file_manip.R", 
-							cmd = F)
-		source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Data_Creation/file_manip.R",
-					sha = file_key)
-		rm(file_key)
+		# file_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Data_Creation/file_manip.R", 
+							# cmd = F)
+		# source_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Data_Creation/file_manip.R",
+					# sha = file_key)
+		# rm(file_key)
 #################################################################################
 #																				#	
 #										Maps									#
