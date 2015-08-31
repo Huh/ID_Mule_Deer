@@ -1,9 +1,7 @@
-		#  Hurley et al Hierarchal Mule Deer Survival Plotting Workflow
+		#  Script to produce manuscript plots
 		#  Josh Nowak
-		#  07/2015
-		#  Only work with this script directly, it will create all plots and 
-		#  perform data/file manipulation
-#################################################################################
+		#  08/2015
+################################################################################
 		#  Load packages
 		require(proto)
 		require(plyr)
@@ -98,38 +96,6 @@
 		lay <- matrix(c(1, 2, 1, 3), ncol = 2, byrow = T)
 		multiplot(sa, ri, rs, layout = lay)
 		
-		#  To plot the individual maps try...
-		print(ri)
-		print(rs)
-		print(sa)
-		
-#################################################################################
-		#  Create plots...maps of all models at "once"
-		#  Get model names
-		# mns <- list.files(file.path(getwd(), "plot_in"))
-		# #  Eliminate ecotype models, prediction models and km
-		# mns <- mns[!grepl("shrub|aspen|con|predi|km", mns, ignore.case = T)]
-		# cat("\n\n", "The models to be plotted include:\n", 
-			# paste(mns, collapse = "\n "), "\n\n")
-		
-		# #  Click on History->Recording in plot window before proceeding to make 
-		# #   plots scorllable 
-		# plot_list <- lapply(mns, function(x){
-			# print(x)
-			# #  Uncomment if you want study area too, then change layout matrix
-			# #sa <- study_area()
-			# ri <- rand_map(x, intercept = T)
-			# if(grepl("rand", x)){
-				# rs <- rand_map(x, intercept = F)
-				# lay <- matrix(c(1, 2, 1, 2), ncol = 2, byrow = T)
-				# multiplot(ri, rs, layout = lay)			
-			# }else{
-				# print(ri)
-			# }
-
-		# list(ri, rs)	
-		# })
-		
 #################################################################################
 #  																				#	
 #								Coefficient plots								#
@@ -156,31 +122,23 @@
 		shrub_models <- list.files(file.path(getwd(), "plot_in"), 
 										pattern = "shrub")
 		full_models <- list.files(file.path(getwd(), "plot_in"), 
-										pattern = "_825.*")	
+										pattern = "^ap")	
 		
 		#  Multiple model plot
 		full_fe <- get_fixedeff(model_nm = full_models, 
-							model_labs = full_models, 
-							param_nm = paste("alpha", c(1, 3:7), sep = ""),
-							param_labs = paste("param", c(1, 3:7), sep = " "))		
+							model_labs = full_models)		
 		plot_fixedeff(full_fe)
 		
 		con_fe <- get_fixedeff(model_nm = conifer_models, 
-							model_labs = conifer_models, 
-							param_nm = paste("alpha", c(1, 3:7), sep = ""),
-							param_labs = paste("param", c(1, 3:7), sep = " "))		
+							model_labs = conifer_models)		
 		plot_fixedeff(con_fe)
 
 		asp_fe <- get_fixedeff(model_nm = aspen_models, 
-							model_labs = aspen_models, 
-							param_nm = paste("alpha", c(1, 3:7), sep = ""),
-							param_labs = paste("param", c(1, 3:7), sep = " "))		
+							model_labs = aspen_models)		
 		plot_fixedeff(asp_fe)
 
 		shrub_fe <- get_fixedeff(model_nm = shrub_models, 
-							model_labs = shrub_models, 
-							param_nm = paste("alpha", c(1, 3:7), sep = ""),
-							param_labs = paste("param", c(1, 3:7), sep = " "))		
+							model_labs = shrub_models)		
 		plot_fixedeff(shrub_fe)		
 		
 		#  Plot on a 2x2 grid
@@ -191,58 +149,49 @@
 		
 		lay <- matrix(c(1, 2, 3, 4), ncol = 2, byrow = T)
 		multiplot(full, con, asp, shrub, layout = lay)
-			
-
-#################################################################################
-#  																				#	
-#								DIC Tables										#
-#																				#		
-#################################################################################
-		#  Create DIC table
-		#  Get model names - repeated in case you jump around in the script
-		mns <- list.files(file.path(getwd(), "plot_in"))
-		#  Eliminate ecotype models, prediction models and km
-		mns <- mns[!grepl("shrub|aspen|con|predi|km", mns, ignore.case = T)]
-		cat("\n\n", "The models to be included in table:\n", 
-			paste(mns, collapse = "\n "), "\n\n")
-			
-		#  DIC table in R, all models
-		dic_wrapper(mns)
 		
-		#  DIC for one model
-		dic_wrapper("3cov57.RData")
-		#  OR
-		extract_dic("3cov_713.RData")
+################################################################################
+		#  R2 plots
+		par(mfrow = c(3, 2))
+		pred_plot("fullrandwintermass_825", 
+					pmus = NULL, 
+					main_txt = "Random winter with mass",
+					add_var = T)
+		pred_plot("fullrandwinternomass_825", 
+					pmus = NULL, 
+					main_txt = "Random winter without mass",
+					add_var = T)
+		pred_plot("6cov", 
+					pmus = NULL, 
+					main_txt = "6 Covariate",
+					add_var = T)
+		pred_plot("5cov", 
+					pmus = NULL, 
+					main_txt = "5 Covariate",
+					add_var = T)
+		pred_plot("3cov", 
+					pmus = NULL, 
+					main_txt = "3 Covariate",
+					add_var = T)
+		par(mfrow = c(1, 1))
 		
-		#  Create word table - no file extension on doc_name
-		dic_wrapper(mns, word = T, doc_name = "tables/full_dic")
-		dic_wrapper(aspen_models, word = T, doc_name = "tables/aspen_dic")
-		dic_wrapper(conifer_models, word = T, doc_name = "tables/conifer_dic")
-		dic_wrapper(shrub_models, word = T, doc_name = "tables/shrub_dic")		
+################################################################################
 		
-#################################################################################
-#  																				#	
-#							Coefficient Tables									#
-#																				#		
-#################################################################################
-		#  Creat coefficient table 
-		#  Step 1, call get_fixedeff
-		#  Step 2, make table - relies on fe objects from above
-		coef_report(full_fe, "tables/full_coef_table")
-		coef_report(asp_fe, "tables/aspen_coef_table")
-		coef_report(con_fe, "tables/conifer_coef_table")
-		coef_report(shrub_fe, "tables/shrub_coef_table")
-#################################################################################
-	#  End
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		pred_plot("PredictionReduced_052315",
+					pmus = NULL,
+					main_txt = "3 Covariate Prediction",
+					add_var = T,
+					highlight_pmu = "Palisades")
 					
+		
+						
+						
+		
+		
+		
+		
+		
+		
+		
 		
 		
