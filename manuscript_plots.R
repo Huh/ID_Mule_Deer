@@ -5,7 +5,6 @@
 		#  Load packages
 		require(proto)
 		require(plyr)
-		require(dplyr)
 		require(sp)
 		require(rgdal)
 		require(mcmcplots)
@@ -17,6 +16,7 @@
 		require(downloader)
 		require(knitr)
 		require(rmarkdown)
+		require(dplyr)
 #################################################################################
 		#  Source plotting functions
 		std_key <- sha_url("https://raw.githubusercontent.com/Huh/ID_Mule_Deer/master/Plotting_Functions/std_plots.R",
@@ -181,26 +181,31 @@
 ################################################################################
 		#  R2 plots
 		par(mfrow = c(3, 2))
-		pred_plot("fullrandwintermass_825", 
+		pred_plot("apfullwinterrandomwithmass", 
 					pmus = NULL, 
 					main_txt = "Random winter with mass",
-					add_var = T)
-		pred_plot("fullrandwinternomass_825", 
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("apfullrandwinternomass_825", 
 					pmus = NULL, 
 					main_txt = "Random winter without mass",
-					add_var = T)
-		pred_plot("6cov", 
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("ap6cov_722", 
 					pmus = NULL, 
 					main_txt = "6 Covariate",
-					add_var = T)
-		pred_plot("5cov", 
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("ap5cov_722", 
 					pmus = NULL, 
 					main_txt = "5 Covariate",
-					add_var = T)
-		pred_plot("3cov", 
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("apfull3cov", 
 					pmus = NULL, 
 					main_txt = "3 Covariate",
-					add_var = T)
+					add_var = T, 
+					highlight_pmu = NULL)
 		par(mfrow = c(1, 1))
 		
 ################################################################################
