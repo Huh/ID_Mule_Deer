@@ -211,7 +211,7 @@
 ################################################################################
 		#  Prediction plots
 		#  I wasn't sure what models to put in here.
-		
+		par(mfrow = c(1, 2))
 		#  Example prediction plot with Palisades highlighted
 		pred_plot("PredictionReduced_052315",
 					pmus = NULL,
@@ -224,7 +224,8 @@
 					pmus = NULL,
 					main_txt = "3 Covariate Prediction",
 					add_var = T,
-					highlight_pmu = NULL)		
+					highlight_pmu = NULL)	
+		par(mfrow = c(1, 1))
 					
 		
 						
