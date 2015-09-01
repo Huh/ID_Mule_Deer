@@ -148,7 +148,9 @@
 		
 		#  Multiple model plot
 		full_fe <- get_fixedeff(model_nm = full_models, 
-							model_labs = full_models)		
+							model_labs = full_models)
+		full_rand <- get_fixedeff(model_nm = full_rand, 
+							model_labs = full_rand) 
 		plot_fixedeff(full_fe)
 		
 		con_fe <- get_fixedeff(model_nm = conifer_models, 
@@ -164,7 +166,8 @@
 		plot_fixedeff(shrub_fe)		
 		
 		#  Plot on a 2x2 grid
-		full <- plot_fixedeff(full_fe) 		
+		full <- plot_fixedeff(full_fe) 	
+		fullr <- plot_fixedeff(full_rand)
 		con <- plot_fixedeff(con_fe) 
 		asp <- plot_fixedeff(asp_fe) 
 		shrub <- plot_fixedeff(shrub_fe) 
@@ -172,6 +175,9 @@
 		lay <- matrix(c(1, 2, 3, 4), ncol = 2, byrow = T)
 		multiplot(full, con, asp, shrub, layout = lay)
 		
+		#  Add in full rand
+		lay <- matrix(c(1, 2, 3, 4, 5, 6), ncol = 2, byrow = T)
+		multiplot(full, fullr, con, asp, shrub, layout = lay)		
 ################################################################################
 		#  R2 plots
 		par(mfrow = c(3, 2))
