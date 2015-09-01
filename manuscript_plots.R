@@ -103,16 +103,16 @@
 #################################################################################
 		#  Create coefficient plots
 		#  One model
-		fe <- get_fixedeff(model_nm = "fullrandwinternomass_825", 
-							model_labs = "Model Name Here", 
-							param_nm = "alpha4", 
-							param_labs = "Parameter Name Here")
+		# fe <- get_fixedeff(model_nm = "fullrandwinternomass_825", 
+							# model_labs = "Model Name Here", 
+							# param_nm = "alpha4", 
+							# param_labs = "Parameter Name Here")
 		
-		#  Print table of values
-		print(fe)
+		# #  Print table of values
+		# print(fe)
 		
 		#  Plot it
-		plot_fixedeff(fe)
+		# plot_fixedeff(fe)
 		
 		#  Create lists of names of models to plot in catepillar plot
 		conifer_models <- c("conifer3cov_722.RData",
@@ -209,12 +209,22 @@
 		par(mfrow = c(1, 1))
 		
 ################################################################################
+		#  Prediction plots
+		#  I wasn't sure what models to put in here.
 		
+		#  Example prediction plot with Palisades highlighted
 		pred_plot("PredictionReduced_052315",
 					pmus = NULL,
 					main_txt = "3 Covariate Prediction",
 					add_var = T,
 					highlight_pmu = "Palisades")
+					
+		#  Example prediction plot without PMU highlighting
+		pred_plot("PredictionReduced_052315",
+					pmus = NULL,
+					main_txt = "3 Covariate Prediction",
+					add_var = T,
+					highlight_pmu = NULL)		
 					
 		
 						

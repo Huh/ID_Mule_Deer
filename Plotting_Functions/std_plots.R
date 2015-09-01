@@ -47,7 +47,7 @@
 			
 			ssize <- sdata %>%
 				group_by(PMU, Cohort) %>%
-				summarise(ss = dplyr::n()) %>%
+				summarise(ss = n()) %>%
 				tidyr::spread(Cohort, ss)
 			
 			ss_index <- apply(ssize, 2, function(x) which(!is.na(x)) )
@@ -87,7 +87,8 @@
 			lines(kmest[o], 
 					predict(loess(as.vector(surv.PMU) ~ as.vector(kmest), 
 						na.action = "na.exclude"))[o],
-					lwd = 2, col ="blue")
+					lwd = 2, 
+					col ="blue")
 
 			pt_cols <- terrain.colors(11)
 					
@@ -102,7 +103,7 @@
 
 				if(grepl("pred", mod, ignore.case = T)){
 					points(kmest[5:6,i], surv.PMU[5:6,i], pch = 1, 
-						col = "green", cex = 3)
+						col = "green", cex = 2.5)
 				}				
 				
 				if(!is.null(highlight_pmu)){
@@ -120,9 +121,42 @@
 			title(main = paste(main_txt, "R^2 =", 
 					round(cor(as.vector(kmest), as.vector(surv.PMU),
 						use = "pairwise.complete.obs")^2, 3)))	
-						
-			#legend()
 			
+			qss <- round(hist(unlist(ssize[,2:12]), breaks = 5, plot = F)$mids)
+			legend("bottomright",  
+				legend = qss,
+				title = "Sample Size",
+				pch = 19,
+				pt.cex = qss/50,
+				col = "gray40",
+				bty = "n")
+			if(grepl("pred", mod, ignore.case = T)){
+				if(!is.null(highlight_pmu)){
+					legend("topleft", 
+						legend = c("Estimate", "Prediction", highlight_pmu),
+						pch = c(19, 1, 19),
+						col = c("gray40", "green", "red"),
+						pt.cex = c(1, 2.5, 1),
+						bty = "n")
+				}else{
+					legend("topleft", 
+						legend = c("Estimate", "Prediction"),
+						title = "",
+						pch = c(19, 1),
+						col = c("gray40", "green"),
+						pt.cex = c(1, 2.5),
+						bty = "n")				
+				}
+			}else{
+				if(!is.null(highlight_pmu)){			
+					legend(0.85, 0.17, 
+							legend = highlight_pmu,
+							title = "",
+							pch = 19,
+							col = c("red"),
+							bty = "n")
+				}
+			}
 		}
 		
 		
