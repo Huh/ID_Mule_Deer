@@ -144,7 +144,14 @@
 			stopifnot(length(model_nm) == length(model_labs))
 			
 			param_labs <- data.frame(param = paste("alpha", 0:7, sep = ""),
-										lab = paste("parm", 0:7, sep = ""))
+										lab = c("GMU_intercept",
+												"ND%snow",
+												"W%snow",
+												"A%snow",
+												"FPC",
+												"SPC",
+												"FWeeks",
+												"Depth"))
 						
 			#  Check model name
 			if(any(!grepl(".RData", model_nm))){

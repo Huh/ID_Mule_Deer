@@ -115,14 +115,36 @@
 		plot_fixedeff(fe)
 		
 		#  Create lists of names of models to plot in catepillar plot
-		conifer_models <- list.files(file.path(getwd(), "plot_in"), 
-										pattern = "conifer")
-		aspen_models <- list.files(file.path(getwd(), "plot_in"), 
-										pattern = "aspen")
-		shrub_models <- list.files(file.path(getwd(), "plot_in"), 
-										pattern = "shrub")
-		full_models <- list.files(file.path(getwd(), "plot_in"), 
-										pattern = "^ap")	
+		conifer_models <- c("conifer3cov_722.RData",
+							"conifer4cov.RData",
+							"conifer5cov.RData",
+							"conifer6cov_722.RData",      
+							"fullconifer_722.RData",
+							"fullconifernomass_722.RData")
+		aspen_models <- c("2covaspen.RData",
+							"3covaspen.RData",        
+							"4covaspen.RData",
+							"5covaspen.RData",        
+							"fullaspennomass.RData",  
+							"fullaspenwithmass.RData")
+		shrub_models <- c("3covshrub_722.RData",
+							"fullshrub_722.RData",      
+							"fullshrubnomass_722.RData",
+							"shrub3cov456_722.RData",   
+							"shrub4cov3_4_5_6.RData",   
+							"shrub5cov_722.RData")
+		full_models <- c("ap5cov_722.RData",
+							"ap6cov_722.RData",                
+							"apfull3cov.RData",
+							"apfullmodel.RData",               
+							"apfullmodelnomass_723.Rdata")
+
+		full_rand <- c("ap3covfallPCrandnomass.RData",
+						"ap3covrandwinter_825.RData",      
+						"apfullmodelrandomfallweeks.RData",
+						"apfullrandomFPC.RData",
+						"apfullrandwinternomass_825.RData",
+						"apfullwinterrandomwithmass.RData")
 		
 		#  Multiple model plot
 		full_fe <- get_fixedeff(model_nm = full_models, 
