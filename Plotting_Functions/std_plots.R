@@ -47,7 +47,7 @@
 			
 			ssize <- sdata %>%
 				group_by(PMU, Cohort) %>%
-				summarise(ss = n()) %>%
+				summarise(ss = length(unique(Animal_ID))) %>%
 				tidyr::spread(Cohort, ss)
 			
 			ss_index <- apply(ssize, 2, function(x) which(!is.na(x)) )
