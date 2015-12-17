@@ -160,7 +160,7 @@
 		
 		#  Multiple model plot
 		full_fe <- get_fixedeff(model_nm = full_models, 
-							model_labs = full_models, 
+							model_labs = full_models), 
 							param_nm = paste("alpha", c(1, 3:7), sep = ""),
 							param_labs = paste("param", c(1, 3:7), sep = " "))		
 		plot_fixedeff(full_fe)

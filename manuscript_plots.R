@@ -95,7 +95,6 @@
 		#	1	3
 		lay <- matrix(c(1, 2, 1, 3), ncol = 2, byrow = T)
 		multiplot(sa, ri, rs, layout = lay)
-		
 #################################################################################
 #  																				#	
 #								Coefficient plots								#
@@ -201,31 +200,92 @@
 					main_txt = "5 Covariate",
 					add_var = T, 
 					highlight_pmu = NULL)
+		pred_plot("ap3covrandwinter_825", 
+					pmus = NULL, 
+					main_txt = "3 Covariate random winter",
+					add_var = T, 
+					highlight_pmu = NULL)
 		pred_plot("apfull3cov", 
 					pmus = NULL, 
 					main_txt = "3 Covariate",
 					add_var = T, 
 					highlight_pmu = NULL)
 		par(mfrow = c(1, 1))
+
+##Additional Plots for new R2##########		
+		#  R2 plots
+		par(mfrow = c(3, 2))
+		pred_plot("ap3covfallPCrandnomass", 
+					pmus = NULL, 
+					main_txt = "3covfallPCrand",
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("apfullwinterrandomwithmass", 
+					pmus = NULL, 
+					main_txt = "Random winter mass",
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("apfullrandomFPC", 
+					pmus = NULL, 
+					main_txt = "fullrandFPC",
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("apfullmodelrandomfallweeks", 
+					pmus = NULL, 
+					main_txt = "randfallweeks",
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("apfullmodelnomass_723", 
+					pmus = NULL, 
+					main_txt = "Full model no mass",
+					add_var = T, 
+					highlight_pmu = NULL)
+		pred_plot("apfullmodel", 
+					pmus = NULL, 
+					main_txt = "Full Model",
+					add_var = T, 
+					highlight_pmu = NULL)
+		par(mfrow = c(1, 1))
 		
-################################################################################
+		
+		################################################################################
 		#  Prediction plots
 		#  I wasn't sure what models to put in here.
-		par(mfrow = c(1, 2))
+		par(mfrow = c(3, 2))
 		#  Example prediction plot with Palisades highlighted
-		pred_plot("PredictionReduced_052315",
+#		pred_plot("PredictionReduced_052315",
+#					pmus = NULL,
+#					main_txt = "3 Covariate Prediction",
+#					add_var = T,
+#					highlight_pmu = "Palisades")
+#										
+		pred_plot("PredictfullmodelRandWinterNoMass_052315",
 					pmus = NULL,
-					main_txt = "3 Covariate Prediction",
+					main_txt = "Full Model with Rand Winter",
 					add_var = T,
-					highlight_pmu = "Palisades")
-					
-		#  Example prediction plot without PMU highlighting
+					highlight_pmu = NULL)	
+		pred_plot("Predict6cov",
+					pmus = NULL,
+					main_txt = "6 covariate Prediction",
+					add_var = T,
+					highlight_pmu = NULL)	
+		pred_plot("Prediction5cov_052315",
+					pmus = NULL,
+					main_txt = "5 Covariate Prediction",
+					add_var = T,
+					highlight_pmu = NULL)	
+		pred_plot("Prediction3covrandwint",
+					pmus = NULL,
+					main_txt = "3 Covariate rand winter",
+					add_var = T,
+					highlight_pmu = NULL)
 		pred_plot("PredictionReduced_052315",
 					pmus = NULL,
 					main_txt = "3 Covariate Prediction",
 					add_var = T,
 					highlight_pmu = NULL)	
-		par(mfrow = c(1, 1))
+
+		par(mfrow = c(1, 1))		
 					
 		
 						

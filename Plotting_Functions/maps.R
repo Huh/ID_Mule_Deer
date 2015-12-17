@@ -142,13 +142,16 @@
 			#  Mean estimates come at the pmu scale and are weekly, study
 			#  covered 6 months or 24 weeks of each year
 			if(intercept){
-				sds <- apply(plogis(surv.res$BUGS$sims.list$alpha0)^24, 2, sd)
+				tmp <- surv.res$BUGS$sims.list$phiPMU
+				tmp[tmp < 0.01] <- NA
+				sds <- apply(tmp, 3, sd, na.rm = T)
 				mudf <- data.frame(PMU = as.character(unique(pmu_fort$id)),
-									mu = plogis(surv.res$BUGS$mean$alpha0) ^ 24)
+					mu = apply(tmp, 3, mean, na.rm = T))
 				pmu_fort <- pmu_fort %>%
-							mutate(PHI =  mudf$mu[match(pmu_fort$id, mudf$PMU)])
+					mutate(PHI =  mudf$mu[match(pmu_fort$id, mudf$PMU)])
 				pmu_labs$PHI <- round(mudf$mu, 2)
 				pmu_labs$SD <- round(sds, 2)
+							
 			}else{
 				sds <- round(surv.res$BUGS$sd$alpha2, 2)
 				mudf <- data.frame(PMU = as.character(unique(pmu_fort$id)),

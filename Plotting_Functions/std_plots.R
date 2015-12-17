@@ -47,7 +47,7 @@
 			
 			ssize <- sdata %>%
 				group_by(PMU, Cohort) %>%
-				summarise(ss = length(unique(Animal_ID))) %>%
+				dplyr::summarise(ss = length(unique(Animal_ID))) %>%
 				tidyr::spread(Cohort, ss)
 			
 			ss_index <- apply(ssize, 2, function(x) which(!is.na(x)) )
@@ -132,14 +132,14 @@
 				bty = "n")
 			if(grepl("pred", mod, ignore.case = T)){
 				if(!is.null(highlight_pmu)){
-					legend("topleft", 
+					legend("bottomright", 
 						legend = c("Estimate", "Prediction", highlight_pmu),
 						pch = c(19, 1, 19),
 						col = c("gray40", "green", "red"),
 						pt.cex = c(1, 2.5, 1),
 						bty = "n")
 				}else{
-					legend("topleft", 
+					legend("bottomright", 
 						legend = c("Estimate", "Prediction"),
 						title = "",
 						pch = c(19, 1),
