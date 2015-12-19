@@ -26,16 +26,15 @@
 			load(file.path(getwd(), "data", "km.RData"))
 			km <- km[km$Year %in% strt_yr:end_yr,]
 			if(!is.null(pmus)){
-				km <- km[km$PMU %in% pmus]
+				km <- km[km$PMU %in% pmus,]
 			}
 			
 			
-			pmu_index <- sdata %>% 
-				select(GMU, PMU) %>%
-				distinct() %>%
-				arrange(GMU) %>%
-				select(PMU) %>%
-				mutate(index = as.numeric(as.factor(PMU)))
+			pmu_index <- data.frame(PMU = c("Bannock",
+        		"Boise River", "Caribou", "Central Mountains", "Island Park",
+				"Middle Fork", "Mountain Valley", "Palisades", "Smokey Bennett",
+				"South Hills", "Weiser McCall"),
+				index = 1:11)
 				
 			sdata <- sdata %>% 
 				mutate(PMU = pmu_index$index[match(PMU, pmu_index$PMU)])			
@@ -122,7 +121,8 @@
 					round(cor(as.vector(kmest), as.vector(surv.PMU),
 						use = "pairwise.complete.obs")^2, 3)))	
 			
-			qss <- round(hist(unlist(ssize[,2:12]), breaks = 5, plot = F)$mids)
+			qss <- c(10, 30, 50, 70)
+				
 			legend("bottomright",  
 				legend = qss,
 				title = "Sample Size",
@@ -130,16 +130,17 @@
 				pt.cex = qss/50,
 				col = "gray40",
 				bty = "n")
+				
 			if(grepl("pred", mod, ignore.case = T)){
 				if(!is.null(highlight_pmu)){
-					legend("bottomright", 
+					legend("topleft", 
 						legend = c("Estimate", "Prediction", highlight_pmu),
 						pch = c(19, 1, 19),
 						col = c("gray40", "green", "red"),
 						pt.cex = c(1, 2.5, 1),
 						bty = "n")
 				}else{
-					legend("bottomright", 
+					legend("topleft", 
 						legend = c("Estimate", "Prediction"),
 						title = "",
 						pch = c(19, 1),
@@ -235,6 +236,9 @@
 									hi95 = lohi[4,])
 			out
 			}))
+			
+			df_in$Model <- factor(1:length(unique(df_in$Model)), 
+				levels = unique(df_in$Model))
 		
 		return(df_in)
 		}
