@@ -236,19 +236,18 @@
 									hi95 = lohi[4,])
 			out
 			}))
-			
-			df_in$Model <- factor(1:length(unique(df_in$Model)), 
-				levels = unique(df_in$Model))
 		
 		return(df_in)
 		}
 ################################################################################
-		plot_fixedeff <- function(x, v_spacing = 0.5){
+		plot_fixedeff <- function(x, Title, v_spacing = 0.5){
 			#  A function to create plots of fixed effects in a catepillar like
 			#  style
-			#  Takes output of get_fixedeff
+			#  Takes output of get_fixedeff, a Title and vertical spacing between
+      #   points
 			#  Returns a plot
 			ggplot(x, aes(x = Mean, y = Parameter, shape = Model)) +
+        ggtitle(Title) +
 				geom_point(position = position_dodgev(height = v_spacing)) +
 				geom_errorbarh(aes(xmin = lo95, xmax = hi95), 
 								height = 0, 

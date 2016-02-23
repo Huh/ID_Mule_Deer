@@ -104,8 +104,8 @@
 				geom_text(data = pmu_labs, aes(x=x, y=y, label = PMU, 
 							hjust = 0.5, vjust = 0.5, fontface = "bold"), 
 							size = pmu_size, colour = pmu_txt) +
-				xlab("Latitude") +
-				ylab("Longitude") +
+				xlab("Longitude") +
+				ylab("Latitude") +
 				scale_fill_manual(values = eco_fill)		
 		}
 #################################################################################
