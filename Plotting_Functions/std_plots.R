@@ -248,7 +248,7 @@
 			#  Returns a plot
 			ggplot(x, aes(x = Mean, y = Parameter, shape = Model)) +
         ggtitle(Title) +
-				geom_point(position = position_dodgev(height = v_spacing)) +
+				geom_vline(xintercept = 0, linetype = 2, colour = "gray") +
 				geom_errorbarh(aes(xmin = lo95, xmax = hi95), 
 								height = 0, 
 								lwd = 0, 
@@ -256,8 +256,9 @@
 				geom_errorbarh(aes(xmin = lo50, xmax = hi50),
 								height = 0,
 								lwd = 1,
-								position = position_dodgev(height = v_spacing)) +
-				geom_vline(xintercept = 0, linetype = 2, colour = "gray") +
+								position = position_dodgev(height = v_spacing),
+                colour = "gray70") +
+        geom_point(position = position_dodgev(height = v_spacing)) +
 				theme_bw() +
 				theme(panel.grid.major = element_blank(),
 						panel.grid.minor = element_blank(),
