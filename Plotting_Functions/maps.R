@@ -90,7 +90,7 @@
 			ggmap(bckgrd) +
 				geom_polygon(data = id_fort, 
 								aes(x = long, y = lat, group = group),
-								fill = NA, colour = gmu_border, size = gmu_line)+
+								fill = NA, colour = gmu_border, size = gmu_line) +
 				geom_text(data = gmu_labs, aes(x=x, y=y, label = GMU, 
 							hjust = 0.5, vjust = 0.5), size = gmu_size, 
 							colour = gmu_txt) +
