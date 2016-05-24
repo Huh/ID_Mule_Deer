@@ -90,7 +90,7 @@
 						color= "bw")
 			
 			#  Create plot
-			ggmap(bckgrd) +
+			ggmap(bckgrd, extent = "device") +
 				geom_polygon(data = id_fort, 
 								aes(x = long, y = lat, group = group),
 								fill = NA, colour = gmu_border, size = gmu_line) +
@@ -116,7 +116,8 @@
           axis.title = element_text(size = axis_title),
           legend.title = element_text(size = axis_title),
           legend.text = element_text(size = axis_title),
-          legend.key.size = unit(lgnd_size, "mm")
+          legend.key.size = unit(lgnd_size, "mm"),
+          legend.position = "top"
         )
         
 		}
