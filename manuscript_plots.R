@@ -376,6 +376,7 @@
 					main_txt = "Shrub full with mass",
 					add_var = T, 
 					highlight_pmu = NULL)
+    dev.off()
 		par(mfrow = c(1, 1))		
 						
 						

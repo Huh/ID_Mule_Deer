@@ -62,6 +62,9 @@
 								pmu_border = "gray90",
 								pmu_line = 1.7,
 								pmu_size = 3.4,
+                axis_txt = 10,
+                axis_title = 3,
+                lgnd_size = .3,
 								pmu_txt = "white",
 								eco_fill = c("green3", "darkgreen", 
 												"navajowhite4"),
@@ -100,13 +103,22 @@
 								alpha = 0.7) +
 				geom_polygon(data = pmu_fort,
 								aes(x = long, y = lat, group = group),
-								fill = NA, colour = pmu_border, size = pmu_line)+
+								fill = NA, colour = pmu_border, size = pmu_line) +
 				geom_text(data = pmu_labs, aes(x=x, y=y, label = PMU, 
-							hjust = 0.5, vjust = 0.5, fontface = "bold"), 
+							hjust = 0.6, vjust = 0.5, fontface = "bold"), 
 							size = pmu_size, colour = pmu_txt) +
 				xlab("Longitude") +
 				ylab("Latitude") +
-				scale_fill_manual(values = eco_fill)		
+				scale_fill_manual(values = eco_fill) +
+        theme_bw() +
+        theme(
+          axis.text = element_text(size = axis_txt),
+          axis.title = element_text(size = axis_title),
+          legend.title = element_text(size = axis_title),
+          legend.text = element_text(size = axis_title),
+          legend.key.size = unit(lgnd_size, "mm")
+        )
+        
 		}
 #################################################################################
 		rand_map <- function(model_nm, 
@@ -116,6 +128,9 @@
 							pmu_line = "gray",
 							phi_txt = "black",
 							phi_size = 3,
+              axis_txt = 5,
+              axis_title = 10,
+              lgnd_size = 1,
 							intercept = T){
 			#  Function takes:
 			#  model_nm - name of the model to plot (character string)
@@ -178,15 +193,18 @@
 				xlab("Longitude") +
 				ylab("Latitude") +
 				theme_bw() +
-				theme(panel.grid.major = element_blank(),
-						panel.grid.minor = element_blank(),
-						panel.background = element_blank(),
-						panel.border = element_blank(),
-						legend.position = "none",
-						axis.line = element_line(color = "black"))
+				theme(
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          panel.border = element_blank(),
+          legend.position = "none",
+          axis.line = element_line(color = "black"),
+          axis.text = element_text(size = axis_txt),
+          axis.title = element_text(size = axis_title),
+          legend.title = element_text(size = axis_title),
+          legend.text = element_text(size = axis_title)
+        )
 		
 		}
 #################################################################################
-
-
-		
