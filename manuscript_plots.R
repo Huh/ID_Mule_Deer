@@ -65,12 +65,14 @@
 							gmu_size = 2.5,
 							pmu_border = "gray50",
 							pmu_line = 1.1,
-							pmu_size = 3.4,
+							pmu_size = 3.3,
 							pmu_txt = "white",
-							eco_fill = c("green3", "darkgreen", 
-											"navajowhite4"),
+              axis_txt = 6,
+              axis_title = 9,
+              lgnd_size = 5,
+							eco_fill = c("green3", "darkgreen", "navajowhite4"),
 							bground = "terrain-background")
-							
+
 		#  Plot of pmu specific intercept estimates
 		ri <- rand_map(model_nm = "fullrandwinternomass_825",
 						lower = "red",
@@ -79,6 +81,9 @@
 						pmu_line = "gray",
 						phi_txt = "black",
 						phi_size = 3,
+            axis_txt = 6,
+            axis_title = 9,
+            txt_label = "(B)",
 						intercept = T)
 						
 		#  Plot of pmu specific winter slope estimates
@@ -89,6 +94,9 @@
 						pmu_line = "gray",
 						phi_txt = "black",
 						phi_size = 3,
+            axis_txt = 6,
+            axis_title = 9,
+            txt_label = "(C)",
 						intercept = F)
 						
 		#  All of the maps at once, visually the grid on which you plot is...
@@ -98,15 +106,55 @@
 		multiplot(sa, ri, rs, layout = lay)
     
     #  Save for publication
-    png(file="plots/maps_highres.png", width = 5844, height = 4024, 
-      res = 450)   
+    png(file="plots/maps_highres.png", width = 5228, height = 3600, 
+      res = 500)   
     multiplot(sa, ri, rs, layout = lay)
     dev.off()
     
+    sa2 <- study_area(gmu_border = "gray25",
+          gmu_line = 1.1,
+          gmu_txt = "gray25",
+          gmu_size = 2.5,
+          pmu_border = "gray50",
+          pmu_line = 1.1,
+          pmu_size = 3.3,
+          pmu_txt = "white",
+          axis_txt = 6,
+          axis_title = 9,
+          lgnd_size = 5,
+          txt_label = "",
+          eco_fill = c("green3", "darkgreen", "navajowhite4"),
+          bground = "terrain-background")
+    
     png(file="plots/study_area_highres.png", width = 3600, height = 3600, 
       res = 420)   
-    plot(sa)
+    plot(sa2)
     dev.off()
+    
+		ri <- rand_map(model_nm = "fullrandwinternomass_825",
+						lower = "red",
+						upper = "green",
+						pmu_alpha = 0.7,
+						pmu_line = "gray",
+						phi_txt = "black",
+						phi_size = 3,
+            axis_txt = 6,
+            axis_title = 9,
+            txt_label = "",
+						intercept = T)
+						
+		#  Plot of pmu specific winter slope estimates
+		rs <- rand_map(model_nm = "fullrandwinternomass_825",
+						lower = "red",
+						upper = "green",
+						pmu_alpha = 0.7,
+						pmu_line = "gray",
+						phi_txt = "black",
+						phi_size = 3,
+            axis_txt = 6,
+            axis_title = 9,
+            txt_label = "",
+						intercept = F)
     
     png(file = "plots/rand_gmus_highres.png", width = 2400, height = 3600, 
       res = 420)   
@@ -189,11 +237,11 @@
 							model_labs = shrub_labs)		
 		
 		#  Plot on a 2x2 grid
-		full <- plot_fixedeff(full_fe, Title = "Full Fixed Effects", 0.7)
-		fullr <- plot_fixedeff(full_rand, Title = "Full Random Effects", 0.7)
-		con <- plot_fixedeff(con_fe, Title = "Conifer Fixed Effects", 0.7) 
-		asp <- plot_fixedeff(asp_fe, Title = "Aspen Fixed Effects", 0.7) 
-		shrub <- plot_fixedeff(shrub_fe, Title = "Shrub Fixed Effects", 0.7) 
+		full <- plot_fixedeff(full_fe, Title = "Full fixed effects", 0.7)
+		fullr <- plot_fixedeff(full_rand, Title = "Full random effects", 0.7)
+		con <- plot_fixedeff(con_fe, Title = "Conifer fixed effects", 0.7) 
+		asp <- plot_fixedeff(asp_fe, Title = "Aspen fixed effects", 0.7) 
+		shrub <- plot_fixedeff(shrub_fe, Title = "Shrub fixed effects", 0.7) 
 		
 		lay <- matrix(c(1, 2, 3, 4), ncol = 2, byrow = T)
 		multiplot(full, con, asp, shrub, layout = lay)
@@ -230,22 +278,22 @@
 					highlight_pmu = NULL)
 		pred_plot("ap6cov_722", 
 					pmus = NULL, 
-					main_txt = "6 Covariate",
+					main_txt = "6 covariate",
 					add_var = T, 
 					highlight_pmu = NULL)
 		pred_plot("ap5cov_722", 
 					pmus = NULL, 
-					main_txt = "5 Covariate",
+					main_txt = "5 covariate",
 					add_var = T, 
 					highlight_pmu = NULL)
 		pred_plot("ap3covrandwinter_825", 
 					pmus = NULL, 
-					main_txt = "3 Covariate random winter",
+					main_txt = "3 covariate random winter",
 					add_var = T, 
 					highlight_pmu = NULL)
 		pred_plot("apfull3cov", 
 					pmus = NULL, 
-					main_txt = "3 Covariate",
+					main_txt = "3 covariate",
 					add_var = T, 
 					highlight_pmu = NULL)
     dev.off()
@@ -291,7 +339,7 @@
 					highlight_pmu = NULL)
 		pred_plot("apfullmodel", 
 					pmus = NULL, 
-					main_txt = "Full Model",
+					main_txt = "Full model",
 					add_var = T, 
 					highlight_pmu = NULL)
 		par(mfrow = c(1, 1))
@@ -311,27 +359,27 @@
 #										
 		pred_plot("PredictfullmodelRandWinterNoMass_052315",
 					pmus = NULL,
-					main_txt = "Full Model with Rand Winter",
+					main_txt = "Full model with rand winter",
 					add_var = T,
 					highlight_pmu = NULL)	
 		pred_plot("Predict6cov",
 					pmus = NULL,
-					main_txt = "6 covariate Prediction",
+					main_txt = "6 covariate prediction",
 					add_var = T,
 					highlight_pmu = NULL)	
 		pred_plot("Prediction5cov_052315",
 					pmus = NULL,
-					main_txt = "5 Covariate Prediction",
+					main_txt = "5 covariate prediction",
 					add_var = T,
 					highlight_pmu = NULL)	
 		pred_plot("Prediction3covrandwint",
 					pmus = NULL,
-					main_txt = "3 Covariate rand winter",
+					main_txt = "3 covariate rand winter",
 					add_var = T,
 					highlight_pmu = NULL)
 		pred_plot("PredictionReduced_052315",
 					pmus = NULL,
-					main_txt = "3 Covariate Prediction",
+					main_txt = "3 covariate prediction",
 					add_var = T,
 					highlight_pmu = NULL)	
     dev.off()
@@ -362,7 +410,7 @@
 					highlight_pmu = NULL)
 		pred_plot(mod = "conifer5cov", 
 					pmus = c(2, 4, 5, 6, 7, 9, 11), 
-					main_txt = "Conifer 5 Covariates",
+					main_txt = "Conifer 5 covariates",
 					add_var = T, 
 					highlight_pmu = NULL)
 					
