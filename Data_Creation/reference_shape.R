@@ -21,7 +21,7 @@
 		outline <- readOGR(dsn = "C:/GIS/IDGMUs", layer = "IDoutline")
 		
 		#  Get basic GMU to PMU reference for entire state
-		gmupmu <- load("C:/Users/josh.nowak/Documents/GitHub/Idaho/gmuDau.RData")
+		load("C:/Users/josh.nowak/Documents/GitHub/Idaho/gmuDau.RData")
 		
 		#  Get data with GMU to PMU to Ecotype reference for monitored areas
 		# ref <- read.csv("C:/Users/josh.nowak/Dropbox/MarkSurv/Allfawns.csv") %>%

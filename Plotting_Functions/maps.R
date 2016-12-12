@@ -66,6 +66,7 @@
                 axis_title = 3,
                 lgnd_size = .3,
 								pmu_txt = "white",
+                txt_label = "",
 								eco_fill = c("green3", "darkgreen", 
 												"navajowhite4"),
 								bground = "terrain-background"){
@@ -79,18 +80,20 @@
 			load(file.path(getwd(), "data", "gmu_labs.RData"))
 			load(file.path(getwd(), "data", "pmu_labs.RData"))
 			load(file.path(getwd(), "data", "id_fort.RData"))
-			load(file.path(getwd(), "data", "pmu_fort.RData"))			
+			load(file.path(getwd(), "data", "pmu_fort.RData"))
 			load(file.path(getwd(), "data", "map_zoom.RData"))
 			
 			#  Get background map
 			#  All options listed under ?get_map
-			bckgrd <- get_map(location = map_zoom, 
-						source = "stamen",
-						maptype = bground,
-						color= "bw")
+			bckgrd <- get_map(
+        location = map_zoom, 
+				source = "stamen",
+				maptype = "terrain-background",
+				color= "bw"
+      )
 			
 			#  Create plot
-			ggmap(bckgrd, extent = "device") +
+			sa <- ggmap(bckgrd) +
 				geom_polygon(data = id_fort, 
 								aes(x = long, y = lat, group = group),
 								fill = NA, colour = gmu_border, size = gmu_line) +
@@ -118,6 +121,34 @@
           legend.text = element_text(size = axis_title),
           legend.key.size = unit(lgnd_size, "mm"),
           legend.position = "top"
+        ) +
+        scalebar(as.data.frame(id_fort), 
+          height = 0.01, 
+          dist = 100, 
+          dd2km = T, 
+          model = 'WGS84', 
+          st.size = 3, 
+          anchor = c("x" = -111.7, "y" = 47.5)
+        ) +
+        geom_segment(
+          arrow = arrow(length = unit(3,"mm"), type = "closed"), 
+            aes(x = -113, xend = -113, y = 47.9, yend = 48.2), 
+            colour = "black"
+        ) +
+        annotate(
+          x = -113, 
+          y = 47.8, 
+          label = "N", 
+          colour = "black", 
+          geom = "text", 
+          size = 4
+        ) +
+        annotate(
+          "text",
+          x = -111.5,
+          y = 48.7,
+          label = txt_label,
+          size = 6
         )
         
 		}
@@ -132,6 +163,7 @@
               axis_txt = 5,
               axis_title = 10,
               lgnd_size = 1,
+              txt_label = "(B)",
 							intercept = T){
 			#  Function takes:
 			#  model_nm - name of the model to plot (character string)
@@ -205,6 +237,13 @@
           axis.title = element_text(size = axis_title),
           legend.title = element_text(size = axis_title),
           legend.text = element_text(size = axis_title)
+        ) +
+        annotate(
+          "text",
+          x = -111.5,
+          y = 45.7,
+          label = txt_label,
+          size = 6
         )
 		
 		}

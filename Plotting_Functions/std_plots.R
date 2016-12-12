@@ -262,11 +262,15 @@
                 colour = "gray70") +
         geom_point(position = position_dodgev(height = v_spacing)) +
         theme_bw() +
-        theme(panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
-            panel.background = element_blank(),
-            panel.border = element_blank(),
-            axis.line = element_line(color = "black"))
+        xlab(expression(bar(X))) +
+        theme(
+          panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          panel.border = element_blank(),
+          axis.line = element_line(color = "black"),
+          plot.title = element_text(hjust = 0.5)
+        )
     
     }
 #################################################################################
