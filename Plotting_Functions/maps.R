@@ -104,10 +104,23 @@
 								aes(x = long, y = lat, group = group, 
 									fill = Ecotype),
 								alpha = 0.7) +
-				geom_polygon(data = pmu_fort,
+				geom_polygon(data = pmu_fort[!pmu_fort$hole,],
 								aes(x = long, y = lat, group = group),
-								fill = NA, colour = pmu_border, size = pmu_line) +
-				geom_text(data = pmu_labs, aes(x=x, y=y, label = PMU, 
+								fill = NA, colour = pmu_border, size = pmu_line)
+
+      theta <- seq(pi/8, 2*pi, length.out=16)
+      xo <- diff(range(pmu_labs$x))/200
+      yo <- diff(range(pmu_labs$y))/200
+      for(i in theta) {
+          sa <- sa + 
+            geom_text(data = pmu_labs,
+              aes(x=x+(cos(i)*xo),y=y+(sin(i)*yo),label=PMU,
+                hjust = 0.6, vjust = 0.5, fontface = "bold"), 
+              size=pmu_size, colour='black' )
+      }
+                
+      sa <- sa +
+        geom_text(data = pmu_labs, aes(x=x, y=y, label = PMU, 
 							hjust = 0.6, vjust = 0.5, fontface = "bold"), 
 							size = pmu_size, colour = pmu_txt) +
 				xlab("Longitude") +
@@ -122,7 +135,7 @@
           legend.key.size = unit(lgnd_size, "mm"),
           legend.position = "top"
         ) +
-        scalebar(as.data.frame(id_fort), 
+        ggsn::scalebar(as.data.frame(id_fort), 
           height = 0.01, 
           dist = 100, 
           dd2km = T, 

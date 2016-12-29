@@ -8,6 +8,7 @@
 		require(sp)
 		require(rgdal)
 		require(mcmcplots)
+    require(ggsn)
 		require(grid)
 		require(ggplot2)
 		require(ggmap)
@@ -65,7 +66,7 @@
 							gmu_size = 2.5,
 							pmu_border = "gray50",
 							pmu_line = 1.1,
-							pmu_size = 3.3,
+							pmu_size = 2.9,
 							pmu_txt = "white",
               axis_txt = 6,
               axis_title = 9,
