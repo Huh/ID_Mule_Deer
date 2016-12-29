@@ -167,7 +167,7 @@
 #								Coefficient plots								#
 #																				#		
 #################################################################################
-		#  Create coefficient plots - Figure 4
+		#  Create coefficient plots - Figure 3
 		#  One model
 		# fe <- get_fixedeff(model_nm = "fullrandwinternomass_825", 
 							# model_labs = "Model Name Here", 
@@ -181,46 +181,52 @@
 		# plot_fixedeff(fe)
 		
 		#  Create lists of names of models to plot in catepillar plot
-		conifer_models <- c("conifer3cov_722.RData",
-							"conifer4cov.RData",
-							"conifer5cov.RData",
-							"conifer6cov_722.RData",      
-							"fullconifer_722.RData",
-							"fullconifernomass_722.RData")
-		conifer_labs <- c("5", "4", "2", "3", "6", "1")					
-		
-		aspen_models <- c("2covaspen.RData",
-							"3covaspen.RData",        
-							"4covaspen.RData",
-							"5covaspen.RData",        
-							"fullaspennomass.RData",  
-							"fullaspenwithmass.RData")
-		aspen_labs <- c("5", "4", "7", "3", "2", "1")
-		
-		shrub_models <- c("3covshrub_722.RData",
-							"fullshrub_722.RData",      
-							"fullshrubnomass_722.RData",
-							"shrub3cov456_722.RData",   
-							"shrub4cov3_4_5_6.RData",   
-							"shrub5cov_722.RData")
-		shrub_labs <- c("7", "2", "3", "7", "6", "5")
-		
-		full_models <- c("apfull3cov.RData",
-						 "apfullmodelnomass_723.Rdata",
-						 "ap6cov_722.RData",           
-						 "ap5cov_722.RData",						 
-						 "apfullmodel.RData"              
-						)
-		full_labs <- c("2", "4", "5", "6", "11")
+    conifer_models <- c(
+      "fullconifernomass_722.RData",
+      "conifer5cov.RData",
+      "conifer6cov_722.RData",
+      "conifer4cov.RData",
+      "conifer3cov_722.RData"
+    )
+    conifer_labs <- as.character(1:5)
 
-		full_rand <- c("ap3covfallPCrandnomass.RData",
-						"ap3covrandwinter_825.RData",      
-						"apfullmodelrandomfallweeks.RData",
-						"apfullrandomFPC.RData",
-						"apfullrandwinternomass_825.RData",
-						"apfullwinterrandomwithmass.RData")
-		rand_labs <- c("8", "1", "7", "10", "3", "9")
-		
+		aspen_models <- c(
+			"fullaspennomass.RData",
+			"5covaspen.RData",
+			"3covaspen.RData",
+      "2covaspen.RData",
+      "6covaspen.RData",
+			"4covaspen.RData"
+      )
+		aspen_labs <- as.character(1:6)
+
+		shrub_models <- c(
+      "shrub6cov_722.RData",
+      "fullshrubnomass_722.RData",
+      "shrub5cov_722.RData",
+      "shrub4cov3_4_5_6.RData", # 4
+      "shrub4cov2_3_4_6.RData", # 5  %w %A fpc fweeks
+      "shrub3cov456_722.RData"  # 3
+      )
+		shrub_labs <- as.character(1:6)
+
+		full_models <- c(
+      "apfull3cov.RData",  #  2  Good
+			"apfullmodelnomass_723.Rdata",  #  4  Good
+			"ap6cov_722.RData",  #  5  Good
+			"ap5cov_722.RData"   #  6  Good
+			)
+		full_labs <- c("2", "4", "5", "6")
+
+		full_rand <- c(
+      "ap3covfallPCrandnomass.RData", # 8  Good
+			"ap3covrandwinter_825.RData",   # 1  Good
+			"apfullmodelrandomfallweeks.RData", # 7  Good
+			"apfullrandwinternomass_825.RData", # 3  Good
+      "apfullrandomFPC.RData"  #  9
+    )
+    rand_labs <- c("8", "1", "7", "3", "9")
+
 		#  Multiple model plot
 		full_fe <- get_fixedeff(model_nm = full_models, 
 							model_labs = full_labs)
@@ -228,13 +234,13 @@
 							model_labs = rand_labs) 
 		
 		con_fe <- get_fixedeff(model_nm = conifer_models, 
-							model_labs = conifer_labs)		
+							model_labs = conifer_labs)
 
 		asp_fe <- get_fixedeff(model_nm = aspen_models, 
-							model_labs = aspen_labs)		
+							model_labs = aspen_labs)
 
 		shrub_fe <- get_fixedeff(model_nm = shrub_models, 
-							model_labs = shrub_labs)		
+							model_labs = shrub_labs)
 		
 		#  Plot on a 2x2 grid
 		full <- plot_fixedeff(full_fe, Title = "Full fixed effects", 0.7)
@@ -262,25 +268,25 @@
     dev.off()
 
 ################################################################################
-		#  R2 plots - Figure 3
+		#  R2 plots - Figure 4
     png(file="plots/Model_KM_comparison_alldata_highres.png", width = 3700, 
       height = 4000, res = 450)   
-		par(mfrow = c(3, 2))
-		pred_plot("apfullwinterrandomwithmass", 
-					pmus = NULL, 
-					main_txt = "Random winter with mass",
-					add_var = T, 
-					highlight_pmu = NULL)
+		par(mfrow = c(2, 2))
+		# pred_plot("apfullwinterrandomwithmass", 
+					# pmus = NULL, 
+					# main_txt = "Random winter with mass",
+					# add_var = T, 
+					# highlight_pmu = NULL)
 		pred_plot("apfullrandwinternomass_825", 
 					pmus = NULL, 
-					main_txt = "Random winter without mass",
+					main_txt = "Random winter",
 					add_var = T, 
 					highlight_pmu = NULL)
-		pred_plot("ap6cov_722", 
-					pmus = NULL, 
-					main_txt = "6 covariate",
-					add_var = T, 
-					highlight_pmu = NULL)
+		# pred_plot("ap6cov_722", 
+					# pmus = NULL, 
+					# main_txt = "6 covariate",
+					# add_var = T, 
+					# highlight_pmu = NULL)
 		pred_plot("ap5cov_722", 
 					pmus = NULL, 
 					main_txt = "5 covariate",
@@ -349,7 +355,7 @@
 		#  Prediction plots - Figure 6
     png(file="plots/Prediction_highres.png", width = 3700, 
       height = 4000, res = 450)   
-		par(mfrow = c(3, 2))
+		par(mfrow = c(2, 2))
 		#  Example prediction plot with Palisades highlighted
 #		pred_plot("PredictionReduced_052315",
 #					pmus = NULL,
@@ -359,29 +365,29 @@
 #										
 		pred_plot("PredictfullmodelRandWinterNoMass_052315",
 					pmus = NULL,
-					main_txt = "Full model with rand winter",
+					main_txt = "Full model with random winter",
 					add_var = T,
 					highlight_pmu = NULL)	
-		pred_plot("Predict6cov",
-					pmus = NULL,
-					main_txt = "6 covariate prediction",
-					add_var = T,
-					highlight_pmu = NULL)	
+		# pred_plot("Predict6cov",
+					# pmus = NULL,
+					# main_txt = "6 covariate prediction",
+					# add_var = T,
+					# highlight_pmu = NULL)	
 		pred_plot("Prediction5cov_052315",
 					pmus = NULL,
-					main_txt = "5 covariate prediction",
+					main_txt = "5 covariate",
 					add_var = T,
 					highlight_pmu = NULL)	
 		pred_plot("Prediction3covrandwint",
 					pmus = NULL,
-					main_txt = "3 covariate rand winter",
+					main_txt = "3 covariate with random winter",
 					add_var = T,
 					highlight_pmu = NULL)
 		pred_plot("PredictionReduced_052315",
 					pmus = NULL,
-					main_txt = "3 covariate prediction",
+					main_txt = "3 covariate",
 					add_var = T,
-					highlight_pmu = NULL)	
+					highlight_pmu = NULL)
     dev.off()
 		par(mfrow = c(1, 1))		
 					
@@ -419,6 +425,7 @@
 					main_txt = "3 Covariate random winter",
 					add_var = T, 
 					highlight_pmu = NULL)
+
 		pred_plot(mod = "fullshrub_722", 
 					pmus = c(7,10), 
 					main_txt = "Shrub full with mass",
@@ -426,14 +433,33 @@
 					highlight_pmu = NULL)
     dev.off()
 		par(mfrow = c(1, 1))		
-						
-						
-		
-		
-		
-		
-		
-		
-		
-		
-		
+################################################################################
+    #  Figure 6
+    #  Top model for each ecotype in Table 2
+    png(file="plots/Figure6_topmodel_by_ecotype.png", 
+      width = 3.35, 
+      height = 7.87,
+      units = "in",
+      res = 450
+    )   
+    par(mfrow = c(3, 1))
+    #  Aspen
+		pred_plot("fullaspennomass",
+					pmus = c(1,3,8),
+					main_txt = "Aspen",
+					add_var = T,
+					highlight_pmu = NULL)
+    #  Conifer
+		pred_plot("fullconifernomass_722",
+					pmus = c(2, 4, 5, 6, 7, 9, 11),
+					main_txt = "Conifer",
+					add_var = T,
+					highlight_pmu = NULL)
+    #  Shrub-Steppe
+		pred_plot(mod = "shrub6cov_722", 
+					pmus = c(7,10), 
+					main_txt = "Shrub-Steppe",
+					add_var = T, 
+					highlight_pmu = NULL)
+    par(mfrow = c(1,1))
+    dev.off()
