@@ -111,7 +111,7 @@
       theta <- seq(pi/8, 2*pi, length.out=16)
       xo <- diff(range(pmu_labs$x))/200
       yo <- diff(range(pmu_labs$y))/200
-      for(i in theta) {
+      for(i in theta){
           sa <- sa + 
             geom_text(data = pmu_labs,
               aes(x=x+(cos(i)*xo),y=y+(sin(i)*yo),label=PMU,

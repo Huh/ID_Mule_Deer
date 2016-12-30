@@ -85,8 +85,9 @@
       lines(kmest[o], 
           predict(loess(as.vector(surv.PMU) ~ as.vector(kmest), 
             na.action = "na.exclude"))[o],
-          lwd = 0.75, 
-          col ="blue")
+          lwd = 0.75,
+          lty = 3,
+          col ="black")
 
       pt_cols <- terrain.colors(11)
           
@@ -119,9 +120,10 @@
           cex = as.numeric(unlist(ssize[ss_index[[i+1]],i+1]/50)))
       }
       
-      title(main = paste(main_txt, "R^2 =", 
-          round(cor(as.vector(kmest), as.vector(surv.PMU),
-            use = "pairwise.complete.obs")^2, 3)))  
+      ccor <- round(cor(as.vector(kmest), as.vector(surv.PMU),
+            use = "pairwise.complete.obs")^2, 3)
+      
+      title(main = bquote(paste(.(main_txt), " ", R^2, " = ", .(ccor))))  
       
       qss <- c(10, 30, 50, 70)
         
